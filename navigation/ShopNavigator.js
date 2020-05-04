@@ -18,6 +18,7 @@ import StartupScreen from '../screens/StartupScreen';
 import Colors from '../constants/Colors';
 import * as authActions from '../store/actions/auth';
 
+//---------------------Setting up default conf for navOptions re-use in all-------------------------
 const defaultNavOptions = {
   headerStyle: {
     backgroundColor: Platform.OS === 'android' ? Colors.primary : ''
@@ -30,7 +31,7 @@ const defaultNavOptions = {
   },
   headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary
 };
-
+//---------------------StackNav for 3 screens from meny to cart-------------------------------------
 const ProductsNavigator = createStackNavigator(
   {
     ProductsOverview: ProductsOverviewScreen,
@@ -38,6 +39,7 @@ const ProductsNavigator = createStackNavigator(
     Cart: CartScreen
   },
   {
+    //-----------Adding icon to all screens and adjusting it for ios or android--------------------
     navigationOptions: {
       drawerIcon: drawerConfig => (
         <Ionicons
@@ -47,15 +49,17 @@ const ProductsNavigator = createStackNavigator(
         />
       )
     },
+    //----------------Re-used default from begining of page----------------------------------------
     defaultNavigationOptions: defaultNavOptions
   }
 );
-
+//-------------------Creating new navigator for Orders and adding same settings--------------------
 const OrdersNavigator = createStackNavigator(
   {
     Orders: OrdersScreen
   },
   {
+   //-----------Adding icon to all screens and adjusting it for ios or android--------------------
     navigationOptions: {
       drawerIcon: drawerConfig => (
         <Ionicons
@@ -65,16 +69,18 @@ const OrdersNavigator = createStackNavigator(
         />
       )
     },
+    //----------------Re-used default from begining of page----------------------------------------
     defaultNavigationOptions: defaultNavOptions
   }
 );
-
+//--------------------Creting new navigator for admin 2 pages------------------------------------
 const AdminNavigator = createStackNavigator(
   {
     UserProducts: UserProductsScreen,
     EditProduct: EditProductScreen
   },
   {
+    //-----------Adding icon to all screens and adjusting it for ios or android--------------------
     navigationOptions: {
       drawerIcon: drawerConfig => (
         <Ionicons
@@ -84,10 +90,11 @@ const AdminNavigator = createStackNavigator(
         />
       )
     },
+    //----------------Re-used default from begining of page----------------------------------------
     defaultNavigationOptions: defaultNavOptions
   }
 );
-
+//------------Creating Side-Drawer and filling it with 3 Navigators----------------------
 const ShopNavigator = createDrawerNavigator(
   {
     Products: ProductsNavigator,
@@ -98,6 +105,7 @@ const ShopNavigator = createDrawerNavigator(
     contentOptions: {
       activeTintColor: Colors.primary
     },
+    //---------------------Placing a Logout button in Drawer-------------------------
     contentComponent: props => {
       const dispatch = useDispatch();
       return (
@@ -118,7 +126,7 @@ const ShopNavigator = createDrawerNavigator(
     }
   }
 );
-
+//--------------------Creting new navigator for Auth creating or log in users------------------------------------
 const AuthNavigator = createStackNavigator(
   {
     Auth: AuthScreen
@@ -127,7 +135,7 @@ const AuthNavigator = createStackNavigator(
     defaultNavigationOptions: defaultNavOptions
   }
 );
-
+//------------------- SwitchNavigator responsible for handling all main navigators---------------------------
 const MainNavigator = createSwitchNavigator({
   Startup: StartupScreen,
   Auth: AuthNavigator,
