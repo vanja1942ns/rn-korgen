@@ -28,7 +28,7 @@ export const fetchProducts = () => {
             key,
             resData[key].ownerId,
             resData[key].title,
-            resData[key].imageUrl,
+            resData[key].image,
             resData[key].description,
             resData[key].price
           )
@@ -64,7 +64,7 @@ export const deleteProduct = productId => {
   };
 };
 
-export const createProduct = (title, description, imageUrl, price) => {
+export const createProduct = (title, description, image, price) => {
   return async (dispatch, getState) => {
     // any async code you want!
     const token = getState().auth.token;
@@ -79,7 +79,7 @@ export const createProduct = (title, description, imageUrl, price) => {
         body: JSON.stringify({
           title,
           description,
-          imageUrl,
+          image,
           price,
           ownerId: userId
         })
@@ -94,7 +94,7 @@ export const createProduct = (title, description, imageUrl, price) => {
         id: resData.name,
         title,
         description,
-        imageUrl,
+        image,
         price,
         ownerId: userId
       }
@@ -102,7 +102,7 @@ export const createProduct = (title, description, imageUrl, price) => {
   };
 };
 
-export const updateProduct = (id, title, description, imageUrl) => {
+export const updateProduct = (id, title, description,price) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
     const response = await fetch(
@@ -115,7 +115,10 @@ export const updateProduct = (id, title, description, imageUrl) => {
         body: JSON.stringify({
           title,
           description,
-          imageUrl
+          price,
+          
+         
+          
         })
       }
     );
@@ -130,7 +133,10 @@ export const updateProduct = (id, title, description, imageUrl) => {
       productData: {
         title,
         description,
-        imageUrl
+        price,
+       
+        
+        
       }
     });
   };

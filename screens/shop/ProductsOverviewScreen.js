@@ -12,17 +12,31 @@ import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import HeaderButton from '../../components/UI/HeaderButton';
+
 import ProductItem from '../../components/shop/ProductItem';
 import * as cartActions from '../../store/actions/cart';
 import * as productsActions from '../../store/actions/products';
 import Colors from '../../constants/Colors';
+import BottomNav from '../../components/BottomNav/BottomNav';
+import * as authActions from '../../store/actions/auth';
+
+import { YellowBox } from 'react-native';
+import _ from 'lodash';
+
+YellowBox.ignoreWarnings(['Setting a timer']);
+const _console = _.clone(console);
+console.warn = message => {
+  if (message.indexOf('Setting a timer') <= -1) {
+    _console.warn(message);
+  }
+};
 
 const ProductsOverviewScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [error, setError] = useState();
   const products = useSelector(state => state.products.availableProducts);
-  
+
   const dispatch = useDispatch();
 
   const loadProducts = useCallback(async () => {
@@ -78,19 +92,30 @@ const ProductsOverviewScreen = props => {
     return (
       <View style={styles.centered}>
         <ActivityIndicator size="large" color={Colors.primary} />
+
       </View>
     );
   }
 
   if (!isLoading && products.length === 0) {
     return (
-      <View style={styles.centered}>
-        <Text>No products found. Maybe start adding some!</Text>
+      <View style={{ flex: 1 }}>
+        <View style={styles.centered}>
+          <Text style={{ fontSize: 21, marginHorizontal: 10, textAlign: 'center' }}>
+            No products found. Maybe start adding some!</Text>
+        </View>
+        <BottomNav
+          BuyCar={() => props.navigation.navigate('Products')}
+          SellCar={() => props.navigation.navigate('Orders')}
+          Live={() => props.navigation.navigate('Admin')}
+          DrawerOpen={props.navigation.openDrawer} />
       </View>
+
     );
   }
 
   return (
+    <View style={{ flex: 1 }}>
     <FlatList
       onRefresh={loadProducts}
       refreshing={isRefreshing}
@@ -98,7 +123,7 @@ const ProductsOverviewScreen = props => {
       keyExtractor={item => item.id}
       renderItem={itemData => (
         <ProductItem
-          image={itemData.item.imageUrl}
+          image={itemData.item.imageUri}
           title={itemData.item.title}
           price={itemData.item.price}
           onSelect={() => {
@@ -120,8 +145,15 @@ const ProductsOverviewScreen = props => {
             }}
           />
         </ProductItem>
+       
       )}
-    />
+    /> 
+    <BottomNav
+          BuyCar={() => props.navigation.navigate('Products')}
+          SellCar={() => props.navigation.navigate('Orders')}
+          Live={() => props.navigation.navigate('Admin')}
+          DrawerOpen={props.navigation.openDrawer} />
+    </View>
   );
 };
 
@@ -131,17 +163,6 @@ ProductsOverviewScreen.navigationOptions = navData => {
     headerLeft: () =>
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
-          title="Menu"
-          iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'}
-          onPress={() => {
-            navData.navigation.toggleDrawer();
-          }}
-        />
-      </HeaderButtons>
-    ,
-    headerRight: () =>
-      <HeaderButtons HeaderButtonComponent={HeaderButton}>
-        <Item
           title="Cart"
           iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
           onPress={() => {
@@ -149,12 +170,29 @@ ProductsOverviewScreen.navigationOptions = navData => {
           }}
         />
       </HeaderButtons>
-    
+    ,
+    headerRight: () =>
+      <HeaderButtons HeaderButtonComponent={HeaderButton}>
+        <Item
+          title="Menu"
+          iconName={Platform.OS === 'android' ? 'md-log-out' : 'ios-log-out'}
+          onPress={() => {
+            navData.navigation.navigate('Auth');
+          }}
+        />
+      </HeaderButtons>
+
   };
 };
 
 const styles = StyleSheet.create({
-  centered: { flex: 1, justifyContent: 'center', alignItems: 'center' }
+
+  centered: {
+    marginTop: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+    /* backgroundColor:Colors.primary */
+  }
 });
 
 export default ProductsOverviewScreen;

@@ -15,6 +15,7 @@ import HeaderButton from '../../components/UI/HeaderButton';
 import * as productsActions from '../../store/actions/products';
 import Input from '../../components/UI/Input';
 import Colors from '../../constants/Colors';
+import ImagePicker from '../../components/ImagePicker';
 
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 
@@ -44,6 +45,11 @@ const formReducer = (state, action) => {
 const EditProductScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
+  const [selectedImage, setSelectedImage] = useState();
+
+  const imageTakenHandler = imagePath => {
+    setSelectedImage(imagePath);
+  };
 
   const prodId = props.navigation.getParam('productId');
   const editedProduct = useSelector(state =>
@@ -54,13 +60,11 @@ const EditProductScreen = props => {
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
       title: editedProduct ? editedProduct.title : '',
-      imageUrl: editedProduct ? editedProduct.imageUrl : '',
       description: editedProduct ? editedProduct.description : '',
-      price: ''
+      price: editedProduct ? editedProduct.price : '',
     },
     inputValidities: {
       title: editedProduct ? true : false,
-      imageUrl: editedProduct ? true : false,
       description: editedProduct ? true : false,
       price: editedProduct ? true : false
     },
@@ -89,7 +93,7 @@ const EditProductScreen = props => {
             prodId,
             formState.inputValues.title,
             formState.inputValues.description,
-            formState.inputValues.imageUrl
+            formState.inputValues.price
           )
         );
       } else {
@@ -97,7 +101,7 @@ const EditProductScreen = props => {
           productsActions.createProduct(
             formState.inputValues.title,
             formState.inputValues.description,
-            formState.inputValues.imageUrl,
+            selectedImage,
             +formState.inputValues.price
           )
         );
@@ -108,7 +112,7 @@ const EditProductScreen = props => {
     }
 
     setIsLoading(false);
-    
+
   }, [dispatch, prodId, formState]);
 
   useEffect(() => {
@@ -138,7 +142,7 @@ const EditProductScreen = props => {
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
-      behavior="padding"
+      behavior='height'
       keyboardVerticalOffset={100}
     >
       <ScrollView>
@@ -156,29 +160,21 @@ const EditProductScreen = props => {
             initiallyValid={!!editedProduct}
             required
           />
+
+
           <Input
-            id="imageUrl"
-            label="Image Url"
-            errorText="Please enter a valid image url!"
-            keyboardType="default"
+            id="price"
+            label="Price"
+            errorText="Please enter a valid price!"
+            keyboardType="decimal-pad"
             returnKeyType="next"
             onInputChange={inputChangeHandler}
-            initialValue={editedProduct ? editedProduct.imageUrl : ''}
+            initialValue={editedProduct ? editedProduct.price : ''}
             initiallyValid={!!editedProduct}
             required
+            min={0.1}
           />
-          {editedProduct ? null : (
-            <Input
-              id="price"
-              label="Price"
-              errorText="Please enter a valid price!"
-              keyboardType="decimal-pad"
-              returnKeyType="next"
-              onInputChange={inputChangeHandler}
-              required
-              min={0.1}
-            />
-          )}
+
           <Input
             id="description"
             label="Description"
@@ -187,6 +183,7 @@ const EditProductScreen = props => {
             autoCapitalize="sentences"
             autoCorrect
             multiline
+            returnKeyType='next'
             numberOfLines={3}
             onInputChange={inputChangeHandler}
             initialValue={editedProduct ? editedProduct.description : ''}
@@ -194,6 +191,9 @@ const EditProductScreen = props => {
             required
             minLength={5}
           />
+          {editedProduct ? null : (
+            <ImagePicker onImageTaken={imageTakenHandler} />
+          )}
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -216,7 +216,7 @@ EditProductScreen.navigationOptions = navData => {
           onPress={submitFn}
         />
       </HeaderButtons>
-    
+
   };
 };
 

@@ -38,17 +38,7 @@ const ProductsNavigator = createStackNavigator(
     ProductDetail: ProductDetailScreen,
     Cart: CartScreen
   },
-  {
-    //-----------Adding icon to all screens and adjusting it for ios or android--------------------
-    navigationOptions: {
-      drawerIcon: drawerConfig => (
-        <Ionicons
-          name={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'}
-          size={23}
-          color={drawerConfig.tintColor}
-        />
-      )
-    },
+ {
     //----------------Re-used default from begining of page----------------------------------------
     defaultNavigationOptions: defaultNavOptions
   }
@@ -60,15 +50,7 @@ const OrdersNavigator = createStackNavigator(
   },
   {
    //-----------Adding icon to all screens and adjusting it for ios or android--------------------
-    navigationOptions: {
-      drawerIcon: drawerConfig => (
-        <Ionicons
-          name={Platform.OS === 'android' ? 'md-list' : 'ios-list'}
-          size={23}
-          color={drawerConfig.tintColor}
-        />
-      )
-    },
+    
     //----------------Re-used default from begining of page----------------------------------------
     defaultNavigationOptions: defaultNavOptions
   }
@@ -81,49 +63,20 @@ const AdminNavigator = createStackNavigator(
   },
   {
     //-----------Adding icon to all screens and adjusting it for ios or android--------------------
-    navigationOptions: {
-      drawerIcon: drawerConfig => (
-        <Ionicons
-          name={Platform.OS === 'android' ? 'md-create' : 'ios-create'}
-          size={23}
-          color={drawerConfig.tintColor}
-        />
-      )
-    },
+   
     //----------------Re-used default from begining of page----------------------------------------
     defaultNavigationOptions: defaultNavOptions
   }
 );
 //------------Creating Side-Drawer and filling it with 3 Navigators----------------------
-const ShopNavigator = createDrawerNavigator(
+const ShopNavigator = createStackNavigator(
   {
     Products: ProductsNavigator,
     Orders: OrdersNavigator,
     Admin: AdminNavigator
   },
   {
-    contentOptions: {
-      activeTintColor: Colors.primary
-    },
-    //---------------------Placing a Logout button in Drawer-------------------------
-    contentComponent: props => {
-      const dispatch = useDispatch();
-      return (
-        <View style={{ flex: 1, paddingTop: 20 }}>
-          <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
-            <DrawerItems {...props} />
-            <Button
-              title="Logout"
-              color={Colors.primary}
-              onPress={() => {
-                dispatch(authActions.logout());
-                // props.navigation.navigate('Auth');
-              }}
-            />
-          </SafeAreaView>
-        </View>
-      );
-    }
+    defaultNavigationOptions: defaultNavOptions, headerMode: 'none' 
   }
 );
 //--------------------Creting new navigator for Auth creating or log in users------------------------------------
@@ -132,7 +85,7 @@ const AuthNavigator = createStackNavigator(
     Auth: AuthScreen
   },
   {
-    defaultNavigationOptions: defaultNavOptions
+    defaultNavigationOptions: defaultNavOptions, headerMode: 'none' 
   }
 );
 //------------------- SwitchNavigator responsible for handling all main navigators---------------------------

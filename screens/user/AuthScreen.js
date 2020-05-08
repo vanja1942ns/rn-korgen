@@ -103,14 +103,14 @@ const AuthScreen = props => {
 
   return (
     <KeyboardAvoidingView
-      behavior="padding"
-      keyboardVerticalOffset={50}
+      behavior='height'
       style={styles.screen}
     >
-      <LinearGradient colors={['#ffedff', '#ffe3ff']} style={styles.gradient}>
+      <LinearGradient colors={['#7EF7FF', '#00818A']} style={styles.gradient}>
         <Card style={styles.authContainer}>
           <ScrollView>
             <Input
+           
               id="email"
               label="E-Mail"
               keyboardType="email-address"
@@ -138,6 +138,7 @@ const AuthScreen = props => {
                 <ActivityIndicator size="small" color={Colors.primary} />
               ) : (
                 <Button
+                style={{}}
                   title={isSignup ? 'Sign Up' : 'Login'}
                   color={Colors.primary}
                   onPress={authHandler}
@@ -174,13 +175,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   authContainer: {
-    width: '80%',
+    width: '95%',
     maxWidth: 400,
     maxHeight: 400,
     padding: 20
   },
   buttonContainer: {
-    marginTop: 10
+    marginTop: 15,
+    
   }
 });
 
