@@ -8,6 +8,8 @@ import {
   KeyboardAvoidingView,
   ActivityIndicator
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -61,7 +63,7 @@ const EditProductScreen = props => {
     inputValues: {
       title: editedProduct ? editedProduct.title : '',
       description: editedProduct ? editedProduct.description : '',
-      price: editedProduct ? editedProduct.price : '',
+      price: '',
     },
     inputValidities: {
       title: editedProduct ? true : false,
@@ -93,7 +95,6 @@ const EditProductScreen = props => {
             prodId,
             formState.inputValues.title,
             formState.inputValues.description,
-            formState.inputValues.price
           )
         );
       } else {
@@ -106,7 +107,7 @@ const EditProductScreen = props => {
           )
         );
       }
-      props.navigation.goBack();
+      props.navigation.navigate('ProductsOverview');
     } catch (err) {
       setError(err.message);
     }
@@ -145,6 +146,7 @@ const EditProductScreen = props => {
       behavior='height'
       keyboardVerticalOffset={100}
     >
+       <LinearGradient colors={['#7EF7FF', '#00818A']} style={styles.gradient}>
       <ScrollView>
         <View style={styles.form}>
           <Input
@@ -161,7 +163,7 @@ const EditProductScreen = props => {
             required
           />
 
-
+{editedProduct ? null : (
           <Input
             id="price"
             label="Price"
@@ -169,12 +171,10 @@ const EditProductScreen = props => {
             keyboardType="decimal-pad"
             returnKeyType="next"
             onInputChange={inputChangeHandler}
-            initialValue={editedProduct ? editedProduct.price : ''}
-            initiallyValid={!!editedProduct}
             required
             min={0.1}
           />
-
+          )}
           <Input
             id="description"
             label="Description"
@@ -196,6 +196,7 @@ const EditProductScreen = props => {
           )}
         </View>
       </ScrollView>
+      </LinearGradient>
     </KeyboardAvoidingView>
   );
 };
@@ -223,6 +224,10 @@ EditProductScreen.navigationOptions = navData => {
 const styles = StyleSheet.create({
   form: {
     margin: 20
+  },
+  gradient: {
+    flex: 1,
+    
   },
   centered: {
     flex: 1,

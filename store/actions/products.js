@@ -102,7 +102,7 @@ export const createProduct = (title, description, image, price) => {
   };
 };
 
-export const updateProduct = (id, title, description,price) => {
+export const updateProduct = (id, title, description) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
     const response = await fetch(
@@ -115,7 +115,7 @@ export const updateProduct = (id, title, description,price) => {
         body: JSON.stringify({
           title,
           description,
-          price,
+        
           
          
           
@@ -133,7 +133,7 @@ export const updateProduct = (id, title, description,price) => {
       productData: {
         title,
         description,
-        price,
+      
        
         
         

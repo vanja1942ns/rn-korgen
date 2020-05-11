@@ -2,6 +2,7 @@ import React, { useState, useEffect, useReducer, useCallback } from 'react';
 import {
   ScrollView,
   View,
+  Text,
   KeyboardAvoidingView,
   StyleSheet,
   Button,
@@ -107,10 +108,19 @@ const AuthScreen = props => {
       style={styles.screen}
     >
       <LinearGradient colors={['#7EF7FF', '#00818A']} style={styles.gradient}>
+
+        <View style={styles.h1}>
+          <Text style={styles.h1T1}>
+            {'Welcome to'}</Text>
+            <Text style={styles.h1T1}>
+            {'Web-shop'}</Text>
+
+        </View>
         <Card style={styles.authContainer}>
           <ScrollView>
+
             <Input
-           
+
               id="email"
               label="E-Mail"
               keyboardType="email-address"
@@ -137,13 +147,13 @@ const AuthScreen = props => {
               {isLoading ? (
                 <ActivityIndicator size="small" color={Colors.primary} />
               ) : (
-                <Button
-                style={{}}
-                  title={isSignup ? 'Sign Up' : 'Login'}
-                  color={Colors.primary}
-                  onPress={authHandler}
-                />
-              )}
+                  <Button
+                    style={{}}
+                    title={isSignup ? 'Sign Up' : 'Login'}
+                    color={Colors.primary}
+                    onPress={authHandler}
+                  />
+                )}
             </View>
             <View style={styles.buttonContainer}>
               <Button
@@ -174,6 +184,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
+  h1: {
+    paddingHorizontal: 32,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  h1T1: {
+    fontWeight: 'bold',
+    fontSize: 32,
+    color: Colors.white
+  },
   authContainer: {
     width: '95%',
     maxWidth: 400,
@@ -183,6 +203,7 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 15,
     
+
   }
 });
 
