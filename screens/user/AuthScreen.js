@@ -112,8 +112,8 @@ const AuthScreen = props => {
         <View style={styles.h1}>
           <Text style={styles.h1T1}>
             {'Welcome to'}</Text>
-            <Text style={styles.h1T1}>
-            {'Web-shop'}</Text>
+            <Text style={styles.h1T2}>
+            {'Sell it'}</Text>
 
         </View>
         <Card style={styles.authContainer}>
@@ -193,6 +193,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 32,
     color: Colors.white
+  },
+  h1T2: {
+    fontWeight: 'bold',
+    fontSize: 32,
+    color: Colors.accent
   },
   authContainer: {
     width: '95%',
