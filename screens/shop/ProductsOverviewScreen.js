@@ -105,10 +105,9 @@ const ProductsOverviewScreen = props => {
             No products found. Maybe start adding some!</Text>
         </View>
         <BottomNav
-          BuyCar={() => props.navigation.navigate('Products')}
-          SellCar={() => props.navigation.navigate('Orders')}
-          Live={() => props.navigation.navigate('Admin')}
-          DrawerOpen={props.navigation.openDrawer} />
+          Home={() => props.navigation.navigate('Home')}
+          Orders={() => props.navigation.navigate('Orders')}
+          Profile={() => props.navigation.navigate('Profile')} />
       </View>
 
     );
@@ -149,10 +148,9 @@ const ProductsOverviewScreen = props => {
       )}
     /> 
     <BottomNav
-          BuyCar={() => props.navigation.navigate('Products')}
-          SellCar={() => props.navigation.navigate('Orders')}
-          Live={() => props.navigation.navigate('Admin')}
-          DrawerOpen={props.navigation.openDrawer} />
+          Home={() => props.navigation.navigate('Home')}
+          Orders={() => props.navigation.navigate('Orders')}
+          Profile={() => props.navigation.navigate('Profile')} />
     </View>
   );
 };

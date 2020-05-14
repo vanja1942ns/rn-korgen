@@ -71,9 +71,9 @@ const AdminNavigator = createStackNavigator(
 //------------Creating Side-Drawer and filling it with 3 Navigators----------------------
 const ShopNavigator = createStackNavigator(
   {
-    Products: ProductsNavigator,
+    Home: ProductsNavigator,
     Orders: OrdersNavigator,
-    Admin: AdminNavigator
+    Profile: AdminNavigator
   },
   {
     defaultNavigationOptions: defaultNavOptions, headerMode: 'none' 

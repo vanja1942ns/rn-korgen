@@ -81,9 +81,9 @@ const CartScreen = props => {
           )}
         /></View>
         <BottomNav
-          BuyCar={() => props.navigation.navigate('Products')}
-          SellCar={() => props.navigation.navigate('Orders')}
-          Live={() => props.navigation.navigate('Admin')}
+          Home={() => props.navigation.navigate('Home')}
+          Orders={() => props.navigation.navigate('Orders')}
+          Profile={() => props.navigation.navigate('Profile')}
         />
       
     </View>

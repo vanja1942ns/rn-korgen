@@ -9,19 +9,19 @@ const BottomNav = props => {
         <View style={styles.container}>
             <View style={styles.bottomNav}>
                 <View style={styles.BottomContainer}>
-                    <View style={styles.buyConteiner}>
-                        <TouchableOpacity onPress={props.BuyCar}>
-                            <Text style={styles.description}>Products</Text>
+                    <View style={styles.homeConteiner}>
+                        <TouchableOpacity onPress={props.Home}>
+                            <Text style={styles.description}>Home</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.sellConteiner}>
-                        <TouchableOpacity onPress={props.SellCar}>
+                    <View style={styles.orderConteiner}>
+                        <TouchableOpacity onPress={props.Orders}>
                             <Text style={styles.description}>Orders</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.LiveConteiner}>
-                        <TouchableOpacity onPress={props.Live} >
-                            <Text style={styles.description}>Admin</Text>
+                    <View style={styles.profileConteiner}>
+                        <TouchableOpacity onPress={props.Profile} >
+                            <Text style={styles.description}>Profile</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -52,19 +52,19 @@ const styles = StyleSheet.create({
         height:42
     },
     
-    buyConteiner: {
+    homeConteiner: {
         width: '33%',
         alignItems: 'center',
         justifyContent: 'center',
     },
-    sellConteiner: {
+    orderConteiner: {
         width: '33%',
         borderLeftColor: Colors.white,
         borderLeftWidth: 0.2,
         alignItems: 'center',
         justifyContent: 'center',
     },
-    LiveConteiner: {
+    profileConteiner: {
         width: '33%',
         borderLeftColor: Colors.white,
         borderLeftWidth: 0.2,
