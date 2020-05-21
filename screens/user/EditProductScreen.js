@@ -146,7 +146,7 @@ const EditProductScreen = props => {
       behavior='height'
       keyboardVerticalOffset={100}
     >
-       <LinearGradient colors={['#7EF7FF', '#00818A']} style={styles.gradient}>
+       
       <ScrollView>
         <View style={styles.form}>
           <Input
@@ -196,7 +196,7 @@ const EditProductScreen = props => {
           )}
         </View>
       </ScrollView>
-      </LinearGradient>
+      
     </KeyboardAvoidingView>
   );
 };
